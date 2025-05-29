@@ -21,11 +21,7 @@ app.get('/', (req, res) => {
 
   if (id) {
     if (data[id]) {
-      return res.json({
-        status: 'success',
-        message: 'Redirecting to original URL',
-        original_url: data[id]
-      })
+      return res.redirect(data[id])
     } else {
       return res.status(404).json({
         status: 'error',
