@@ -1,14 +1,8 @@
 const express = require('express')
 const app = express()
-const fs = require('fs')
 const { v4: uuidv4 } = require('uuid')
 
 let data = {}
-const DATA_FILE = 'data.json'
-
-if (fs.existsSync(DATA_FILE)) {
-  data = JSON.parse(fs.readFileSync(DATA_FILE))
-}
 
 app.get('/', (req, res) => {
   const { id, url } = req.query
@@ -16,7 +10,6 @@ app.get('/', (req, res) => {
   if (url) {
     const shortId = uuidv4().slice(0, 8)
     data[shortId] = url
-    fs.writeFileSync(DATA_FILE, JSON.stringify(data))
     return res.json({
       status: 'success',
       message: 'URL shortened successfully',
